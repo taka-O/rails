@@ -1,24 +1,14 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+railsサッmプル
 
-Things you may want to cover:
+# 環境
+rails 8.0
+mysql 8.4
 
-* Ruby version
+# Dockerセットアップ、および起動
+docker compose up -d
 
-* System dependencies
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Docker rails環境への接続
+docker compose exec rails bash
