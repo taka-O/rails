@@ -1,8 +1,8 @@
 # README
-
-railsサッmプル
+railsサンプル
 
 # 環境
+ruby 3.4
 rails 8.0
 mysql 8.4
 
