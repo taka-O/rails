@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   namespace "api" do
-    post 'auth/login', to: 'auth#login'
+    post "auth/login", to: "auth#login"
 
     resources :users, only: %i[] do
       get :current, on: :collection

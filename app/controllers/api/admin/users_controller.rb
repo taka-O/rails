@@ -4,8 +4,8 @@ class Api::Admin::UsersController < ApplicationController
   def index
     users = User.all
     users = users.where(role: params[:role]) if params[:role].present?
-    users = users.where('name LIKE ?', "%#{params[:name]}%") if params[:name].present?
-    users = users.where('email LIKE ?', "%#{params[:email]}%") if params[:email].present?
+    users = users.where("name LIKE ?", "%#{params[:name]}%") if params[:name].present?
+    users = users.where("email LIKE ?", "%#{params[:email]}%") if params[:email].present?
 
     render :index, formats: :json, locals: { users: users }
   end
@@ -24,7 +24,7 @@ class Api::Admin::UsersController < ApplicationController
   end
 
   def update
-    form = Admin::UpdateUserForm.new(user: @user, user_params)
+    form = Admin::UpdateUserForm.new(user: @user, **user_params)
     if form.save
       render :show, formats: :json, locals: { user: form.record }, status: :created
     else

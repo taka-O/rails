@@ -1,1 +1,1 @@
-json.partial! 'models/user', user: user
+json.partial! "models/user", user: user

@@ -19,13 +19,13 @@ RSpec.describe Admin::UpdateUserForm do
     end
 
     context 'with blank params' do
-      let(:update_params) { { } }
+      let(:update_params) { {} }
 
       it do
-        expect(save).to be_truthy
-        expect(instance.name).to eq 'test'
-        expect(instance.email).to eq 'test@hogehoge'
-        expect(instance.role).to eq 'admin'
+        expect(save).to be_falsey
+        expect(instance.errors.map(&:attribute)).to include :name
+        expect(instance.errors.map(&:attribute)).to include :email
+        expect(instance.errors.map(&:attribute)).to include :role
       end
     end
 
@@ -39,7 +39,7 @@ RSpec.describe Admin::UpdateUserForm do
     end
 
     context 'when email already exists' do
-      let(:update_params) { { email: 'update@hogehoge' } }
+      let(:update_params) { { name: 'update', email: 'update@hogehoge', role: 'instructor' } }
 
       before do
         create(:user, email: 'update@hogehoge')

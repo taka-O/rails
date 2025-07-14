@@ -5,9 +5,6 @@ class Admin::UpdateUserForm < Admin::CreateUserForm
     super(**)
 
     @record = user
-    self.name = @record.name if name.blank?
-    self.email = @record.email if email.blank?
-    self.role = @record.role if role.blank?
   end
 
   protected

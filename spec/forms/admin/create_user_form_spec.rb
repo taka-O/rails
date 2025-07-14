@@ -18,7 +18,7 @@ RSpec.describe Admin::CreateUserForm do
     end
 
     context 'with blank params' do
-      let(:create_params) { { } }
+      let(:create_params) { {} }
 
       it do
         expect(save).to be_falsey

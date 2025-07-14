@@ -9,7 +9,7 @@ class Admin::CreateUserForm < BaseForm
   end
   with_options length: { maximum: 255 } do
     validates :name
-    validates :email
+    validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   end
   validates :role, inclusion: { in: User.roles.keys }
 

@@ -10,14 +10,15 @@ class ApplicationController < ActionController::API
       secret_key = Rails.application.credentials.secret_key_base
 
       begin
-        decoded_token = JWT.decode(token, secret_key)
-        @current_user = User.find_by_pid(decoded_token[0]["pid"])
-      rescue ActiveRecord::RecordNotFound
-        render_unauthorized
-      rescue JWT::DecodeError
+        @current_user = User.find_by_token(token: token, secret_key: secret_key)
+      rescue JWT::DecodeError, ActiveRecord::RecordNotFound
         render_unauthorized
       end
     end
+  end
+
+  def current_user
+    @current_user
   end
 
   def render_unauthorized

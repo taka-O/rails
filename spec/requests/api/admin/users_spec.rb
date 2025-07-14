@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "Api::Admin::Users", type: :request do
   describe "GET /api/admin/users" do
-    include_context 'jwt authentication header'
+    include_context 'token authentication header'
 
-    subject(:get_users) { get api_admin_users_path, params: search_params, headers: jwt_headers }
+    subject(:get_users) { get api_admin_users_path, params: search_params, headers: auth_headers }
 
     before do
       create(:user, name: 'アドミン太郎', email: 'admin1@hogehoge.com', role: :admin)
@@ -30,7 +30,7 @@ RSpec.describe "Api::Admin::Users", type: :request do
 
     context 'with search params' do
       context 'with role' do
-        let(:search_params) { { role: 'instructor'} }
+        let(:search_params) { { role: 'instructor' } }
 
         it do
           get_users
@@ -42,7 +42,7 @@ RSpec.describe "Api::Admin::Users", type: :request do
       end
 
       context 'with name' do
-        let(:search_params) { { name: '太郎'} }
+        let(:search_params) { { name: '太郎' } }
 
         it do
           get_users
@@ -56,7 +56,7 @@ RSpec.describe "Api::Admin::Users", type: :request do
       end
 
       context 'with email' do
-        let(:search_params) { { email: 'student'} }
+        let(:search_params) { { email: 'student' } }
 
         it do
           get_users
@@ -69,7 +69,7 @@ RSpec.describe "Api::Admin::Users", type: :request do
         end
       end
       context 'with rolw' do
-        let(:search_params) { { role: 'instructor'} }
+        let(:search_params) { { role: 'instructor' } }
 
         it do
           get_users
@@ -97,11 +97,11 @@ RSpec.describe "Api::Admin::Users", type: :request do
   end
 
   describe "POST /api/admin/users" do
-    include_context 'jwt authentication header'
+    include_context 'token authentication header'
 
-    subject(:post_users) { post api_admin_users_path, params: create_params, headers: jwt_headers }
+    subject(:post_users) { post api_admin_users_path, params: create_params, headers: auth_headers }
 
-    let(:create_params) { { name: name, email: email, role: role}.to_json }
+    let(:create_params) { { name: name, email: email, role: role } }
 
     context 'with valid data' do
       let(:name) { 'テスト太郎' }

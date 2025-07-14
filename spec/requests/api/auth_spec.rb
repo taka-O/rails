@@ -7,10 +7,6 @@ RSpec.describe "Auth", type: :request do
     context 'when match user' do
       let(:req_params) { { email: 'test@test.com', password: 'hogehoge' } }
 
-      before do
-        travel_to Time.zone.now
-      end
-
       it do
         post api_auth_login_path, params: req_params
         expect(response).to have_http_status(:ok)

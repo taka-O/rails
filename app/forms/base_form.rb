@@ -13,8 +13,8 @@ class BaseForm
     end
 
     {
-      status: 'error',
-      message: 'validation error',
+      status: "error",
+      message: "validation error",
       errors: error_datails
     }
   end
