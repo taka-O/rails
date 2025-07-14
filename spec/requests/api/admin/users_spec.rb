@@ -4,7 +4,10 @@ RSpec.describe "Api::Admin::Users", type: :request do
   describe "GET /api/admin/users" do
     include_context 'token authentication header'
 
-    subject(:get_users) { get api_admin_users_path, params: search_params, headers: auth_headers }
+    subject(:get_users) { get api_admin_users_path, params: search_params, headers: headers }
+
+    let(:headers) { auth_headers }
+    let(:search_params) { {} }
 
     before do
       create(:user, name: 'アドミン太郎', email: 'admin1@hogehoge.com', role: :admin)
@@ -18,8 +21,6 @@ RSpec.describe "Api::Admin::Users", type: :request do
     end
 
     context 'without search params' do
-      let(:search_params) { {} }
-
       it do
         get_users
         expect(response).to have_http_status(:ok)
@@ -93,21 +94,30 @@ RSpec.describe "Api::Admin::Users", type: :request do
           end
         end
       end
+
+      context 'when user has not authority' do
+        let(:headers) { auth_headers(create(:user, role: :instructor)) }
+
+        it do
+          get_users
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
     end
   end
 
   describe "POST /api/admin/users" do
     include_context 'token authentication header'
 
-    subject(:post_users) { post api_admin_users_path, params: create_params, headers: auth_headers }
+    subject(:post_users) { post api_admin_users_path, params: create_params, headers: headers }
 
+    let(:headers) { auth_headers }
     let(:create_params) { { name: name, email: email, role: role } }
+    let(:name) { 'テスト太郎' }
+    let(:email) { 'testtaro@hogehoge.com' }
+    let(:role) { 'student' }
 
     context 'with valid data' do
-      let(:name) { 'テスト太郎' }
-      let(:email) { 'testtaro@hogehoge.com' }
-      let(:role) { 'student' }
-
       it do
         post_users
         expect(response).to have_http_status(:created)
@@ -133,5 +143,14 @@ RSpec.describe "Api::Admin::Users", type: :request do
         expect(body['errors'].keys).to include 'role'
       end
     end
+
+      context 'when user has not authority' do
+        let(:headers) { auth_headers(create(:user, role: :student)) }
+
+        it do
+          post_users
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
   end
 end

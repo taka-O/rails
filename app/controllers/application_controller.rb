@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::API
+  class NotPermittedError < StandardError; end
   before_action :authenticate!
+
+  rescue_from NotPermittedError, with: :forbidden
 
   def authenticate!
     authorization_header = request.headers[:Authorization]
@@ -23,5 +26,9 @@ class ApplicationController < ActionController::API
 
   def render_unauthorized
     render json: { errors: 'Unauthorized' }, status: :unauthorized
+  end
+
+  def forbidden
+    render json: { errors: 'Forbidden' }, status: :forbidden
   end
 end
