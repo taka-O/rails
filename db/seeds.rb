@@ -9,7 +9,7 @@
 #   end
 
 # Create Admin
-admin = User.find_by(role: :admin)
+admin = User.find_by(email: "admin@example.com")
 if admin.blank?
   User.create!(pid: SecureRandom.uuid, email: "admin@example.com", password_digest: BCrypt::Password.create('Passw0rd'), name: "admin", role: :admin)
 end
