@@ -25,10 +25,10 @@ class ApplicationController < ActionController::API
   end
 
   def render_unauthorized
-    render json: { errors: 'Unauthorized' }, status: :unauthorized
+    render json: { errors: "Unauthorized" }, status: :unauthorized
   end
 
   def forbidden
-    render json: { errors: 'Forbidden' }, status: :forbidden
+    render json: { errors: "Forbidden" }, status: :forbidden
   end
 end

@@ -115,7 +115,7 @@ RSpec.describe "Api::Admin::Users", type: :request do
     let(:create_params) { { name: name, email: email, role: role } }
     let(:name) { 'テスト太郎' }
     let(:email) { 'testtaro@hogehoge.com' }
-    let(:role) { 'student' }
+    let(:role) { 'STUDENT' }
 
     context 'with valid data' do
       it do
@@ -125,7 +125,7 @@ RSpec.describe "Api::Admin::Users", type: :request do
         expect(body['pid']).not_to be_falsey
         expect(body['name']).to eq name
         expect(body['email']).to eq email
-        expect(body['role']).to eq role
+        expect(body['role']).to eq role.downcase
       end
     end
 
