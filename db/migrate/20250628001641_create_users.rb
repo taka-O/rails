@@ -5,8 +5,6 @@ class CreateUsers < ActiveRecord::Migration[8.0]
       t.string :email, limit: 256, null: false, comment: 'メールアドレス'
       t.string :password_digest, comment: '暗号化パスワード'
       t.string :name, null: false, comment: '名前'
-      t.string :rest_password_token, comment: 'パスワードリセットトークン'
-      t.string :rest_password_sent_at, comment: 'パスワードリセットトークン送信日時'
       t.string :email_verification_token, comment: 'メール確認トークン'
       t.string :email_verification_token_sent_at, comment: 'メール確認トークン送信日時'
       t.string :email_verification_at, comment: 'メール確認日時'

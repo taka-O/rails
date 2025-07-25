@@ -3,8 +3,7 @@ RSpec.shared_context "token authentication header" do
 
   def auth_headers(user = nil)
     user ||= auth_user
-    secret_key = Rails.application.credentials.secret_key_base
-    token = user.generate_token(secret_key: secret_key, expiration: Time.zone.now.since(7.days).to_i)
+    token = user.generate_token(expiration: Time.zone.now.since(7.days).to_i)
     { HTTP_ACCEPT: "application/json", Authorization: "Bearer: #{token}" }
   end
 end

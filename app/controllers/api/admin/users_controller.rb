@@ -6,6 +6,7 @@ class Api::Admin::UsersController < Api::Admin::ApplicationController
     users = users.where(role: params[:role]) if params[:role].present?
     users = users.where("name LIKE ?", "%#{params[:name]}%") if params[:name].present?
     users = users.where("email LIKE ?", "%#{params[:email]}%") if params[:email].present?
+    users.page(params[:page]).per(params[:per])
 
     render :index, formats: :json, locals: { users: users }
   end

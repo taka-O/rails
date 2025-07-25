@@ -13,6 +13,11 @@ class Admin::CreateUserForm < BaseForm
   end
   validates :role, inclusion: { in: User.roles.keys }
 
+  def initialize(attr = {})
+    super(attr)
+    self.role = self.role.downcase if self.role.present?
+  end
+
   def save
     return false if invalid?
 

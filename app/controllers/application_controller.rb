@@ -10,10 +10,9 @@ class ApplicationController < ActionController::API
       render_unauthorized
     else
       token = authorization_header.split(" ")[1]
-      secret_key = Rails.application.credentials.secret_key_base
 
       begin
-        @current_user = User.find_by_token(token: token, secret_key: secret_key)
+        @current_user = User.find_by_token(token: token)
       rescue JWT::DecodeError, ActiveRecord::RecordNotFound
         render_unauthorized
       end

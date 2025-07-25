@@ -4,11 +4,6 @@ class BaseForm
 
   attr_reader :record
 
-  def initialize(attr)
-    super(attr)
-    self.role = self.role.downcase if self.role.present?
-  end
-
   def error
     return if errors.blank?
 

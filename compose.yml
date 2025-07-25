@@ -1,9 +1,9 @@
 services:
-  app:
+  rails:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: app
+    container_name: rails
     environment:
           MYSQL_HOST: db
           MYSQL_USER: dev
@@ -36,9 +36,19 @@ services:
     networks:
       - dev_network
 
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    volumes:
+      - mailhog-data:/data
+
 volumes:
   bundle:
   rails_mysql_data:
+  mailhog-data:
 
 networks:
   dev_network:
