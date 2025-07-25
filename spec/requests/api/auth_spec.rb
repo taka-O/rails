@@ -36,7 +36,7 @@ RSpec.describe "Auth", type: :request do
     end
   end
 
-  describe "GET /api/auth/reset_password_token" do
+  describe "POST /api/auth/reset_password_token" do
     include_context 'token authentication header'
 
     let(:user) { create(:user, email: 'student@test.com', password_digest: BCrypt::Password.create('hogehoge'), role: :student) }
@@ -45,7 +45,7 @@ RSpec.describe "Auth", type: :request do
       let(:req_params) { { email: user.email, reset_url: 'http://hogehoge/reset_password' } }
 
       it do
-        get api_auth_reset_password_token_path, params: req_params, headers: auth_headers(user)
+        post api_auth_reset_password_token_path, params: req_params, headers: auth_headers(user)
         expect(response).to have_http_status(:no_content)
       end
     end
@@ -54,13 +54,13 @@ RSpec.describe "Auth", type: :request do
       let(:req_params) { { email: 'testxx@test.com', reset_url: 'http://hogehoge/reset_password' } }
 
       it do
-        get api_auth_reset_password_token_path, params: req_params, headers: auth_headers(user)
+        post api_auth_reset_password_token_path, params: req_params, headers: auth_headers(user)
         expect(response).to have_http_status(:not_found)
       end
     end
   end
 
-  describe "PATCH /api/auth/reset_password" do
+  describe "POST /api/auth/reset_password" do
     include_context 'token authentication header'
 
     let(:user) { create(:user, email: 'student@test.com', password_digest: BCrypt::Password.create('hogehoge'), role: :student) }
@@ -70,7 +70,7 @@ RSpec.describe "Auth", type: :request do
       let(:req_params) { { token: token, new_password: 'newpassword' } }
 
       it do
-        patch api_auth_reset_password_path, params: req_params, headers: auth_headers(user)
+        post api_auth_reset_password_path, params: req_params, headers: auth_headers(user)
         expect(response).to have_http_status(:no_content)
       end
     end
@@ -84,7 +84,7 @@ RSpec.describe "Auth", type: :request do
       let(:req_params) { { new_password: 'newpassword' } }
 
       it do
-        patch api_auth_reset_password_path, params: req_params, headers: auth_headers(user)
+        post api_auth_reset_password_path, params: req_params, headers: auth_headers(user)
         expect(response).to have_http_status(:not_found)
       end
     end
