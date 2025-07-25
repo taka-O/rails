@@ -44,6 +44,8 @@ services:
       - "8025:8025"
     volumes:
       - mailhog-data:/data
+    networks:
+      - dev_network
 
 volumes:
   bundle:
