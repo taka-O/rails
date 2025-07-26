@@ -25,13 +25,14 @@ if Rails.env.development?
   # Create Course
   if Course.all.size.zero?
     course1 = Course.create!(name: 'course1', description: "course1 description", start_at: '2025-04-01', end_at: "2025-09-30")
-    CourseStudent.create!(course_id: course1.id, user_id: student1.id)
-    CourseStudent.create!(course_id: course1.id, user_id: student2.id)
+    CourseUser.create!(course_id: course1.id, user_id: instructor1.id, user_type: :instructor)
+    CourseUser.create!(course_id: course1.id, user_id: student1.id, user_type: :student)
+    CourseUser.create!(course_id: course1.id, user_id: student2.id, user_type: :student)
 
     course2 = Course.create!(name: 'course2', description: "course2 description", start_at: '2025-04-01', end_at: "2025-09-30")
-    CourseInstructor.create!(course_id: course2.id, user_id: instructor2.id)
-    CourseStudent.create!(course_id: course2.id, user_id: student2.id)
-    CourseStudent.create!(course_id: course2.id, user_id: student3.id)
+    CourseUser.create!(course_id: course2.id, user_id: instructor2.id, user_type: :instructor)
+    CourseUser.create!(course_id: course2.id, user_id: student2.id, user_type: :student)
+    CourseUser.create!(course_id: course2.id, user_id: student3.id, user_type: :student)
   end
 
   # Create Announcement

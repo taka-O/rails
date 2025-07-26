@@ -31,22 +31,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_25_005723) do
     t.index ["start_at", "end_at", "category"], name: "index_announcements_on_start_at_and_end_at_and_category"
   end
 
-  create_table "course_instructors", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "course_users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "course_id", null: false
     t.bigint "user_id", null: false
+    t.string "user_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["course_id"], name: "index_course_instructors_on_course_id"
-    t.index ["user_id"], name: "index_course_instructors_on_user_id"
-  end
-
-  create_table "course_students", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "course_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["course_id"], name: "index_course_students_on_course_id"
-    t.index ["user_id"], name: "index_course_students_on_user_id"
+    t.index ["course_id"], name: "index_course_users_on_course_id"
+    t.index ["user_type", "user_id"], name: "index_course_users_on_user_type_and_user_id"
   end
 
   create_table "courses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

@@ -20,10 +20,10 @@ RSpec.describe "Api::Announcements", type: :request do
     create(:announcement_course, announcement_id: announcements.second.id, course_id: courses.first.id)
     create(:announcement_course, announcement_id: announcements.third.id, course_id: courses.second.id)
 
-    create(:course_instructor, course_id: courses.first.id, user_id: instructors.first.id)
-    create(:course_instructor, course_id: courses.second.id, user_id: instructors.second.id)
-    create(:course_student, course_id: courses.first.id, user_id: students.first.id)
-    create(:course_student, course_id: courses.second.id, user_id: students.second.id)
+    create(:course_user, course_id: courses.first.id, user_id: instructors.first.id, user_type: :instructor)
+    create(:course_user, course_id: courses.second.id, user_id: instructors.second.id, user_type: :instructor)
+    create(:course_user, course_id: courses.first.id, user_id: students.first.id, user_type: :student)
+    create(:course_user, course_id: courses.second.id, user_id: students.second.id, user_type: :student)
 
     create(:announcement_course, announcement_id: announcements.last.id, course_id: courses.first.id)
   end

@@ -4,7 +4,7 @@ if course.instructors.loaded?
     json.array! course.instructors, :id, :name
   end
 end
-if course.course_students.loaded?
+if course.students.loaded?
   json.set! :students do
     json.array! course.students, :id, :name
   end
