@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   namespace "api" do
     post "auth/login", to: "auth#login"
-    post "auth/reset_password_token", to: "auth#reset_password_token"
+    post "auth/send_reset_token", to: "auth#send_reset_token"
     post "auth/reset_password", to: "auth#reset_password"
     post "auth/current", to: "auth#current"
 

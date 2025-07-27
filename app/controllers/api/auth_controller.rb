@@ -11,7 +11,7 @@ class Api::AuthController < ApplicationController
     end
   end
 
-  def reset_password_token
+  def send_reset_token
     user = User.find_by_email!(reset_password_token_params[:email])
     token = user.generate_token_for(:password_reset)
     UserMailer.reset_password(user: user, token: token, reset_url: reset_password_token_params[:reset_url]).deliver_later
@@ -20,13 +20,11 @@ class Api::AuthController < ApplicationController
   end
 
   def reset_password
-    user = User.find_by_token_for(:password_reset, reset_password_params[:token])
-    if user.blank?
-      render json: { message: "nof found" }, status: :not_found
-    else
-      user.update!(password: reset_password_params[:new_password])
-
+    form = Auth::ResetPasswordForm.new(reset_password_params)
+    if form.save
       head :no_content
+    else
+      render json: form.error, status: :unprocessable_entity
     end
   end
 
@@ -45,6 +43,6 @@ class Api::AuthController < ApplicationController
   end
 
   def reset_password_params
-    params.permit(:token, :new_password)
+    params.permit(:token, :password, :password_confirmation)
   end
 end
