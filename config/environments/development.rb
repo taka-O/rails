@@ -39,7 +39,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: "localhost", port: 3001 }
   config.action_mailer.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
-    address: "mailhog",
+    address: "mail",
     port: 1025
   }
 
