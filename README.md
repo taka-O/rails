@@ -7,7 +7,14 @@ rails 8.0<br/>
 mysql 8.4<br/>
 
 # Dockerセットアップ、および起動
+<ul>
+<li>Dockerセットアップ、および起動</li>
 docker compose up -d
+<li>bundle install（railsコンテナの起動に失敗するため）</li>
+docker compose run --rm rails bundle install
+<li>Dockerを再度起動</li>
+docker compose up -d
+</ul>
 
 # Docker rails環境への接続
 docker compose exec rails bash
