@@ -61,3 +61,4 @@ volumes:
 networks:
   dev_network:
     name: dev_network
+    external: true
