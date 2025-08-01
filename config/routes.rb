@@ -22,7 +22,11 @@ Rails.application.routes.draw do
     end
 
     namespace "admin" do
-      resources :users
+      resources :users do
+        collection do
+          resources :import, only: %i[create], module: :users
+        end
+      end
     end
   end
 end

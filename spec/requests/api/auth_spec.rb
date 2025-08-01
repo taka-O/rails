@@ -36,7 +36,7 @@ RSpec.describe "Auth", type: :request do
     end
   end
 
-  describe "POST /api/auth/send_reset_token" do
+  describe "POST /api/auth/send_reset_password_token" do
     include_context 'token authentication header'
 
     let(:user) { create(:user, email: 'student@test.com', password_digest: BCrypt::Password.create('hogehoge'), role: :student) }
@@ -45,7 +45,7 @@ RSpec.describe "Auth", type: :request do
       let(:req_params) { { email: user.email, reset_url: 'http://hogehoge/reset_password' } }
 
       it do
-        post api_auth_send_reset_token_path, params: req_params, headers: auth_headers(user)
+        post api_auth_send_reset_password_token_path, params: req_params, headers: auth_headers(user)
         expect(response).to have_http_status(:no_content)
       end
     end
@@ -54,7 +54,7 @@ RSpec.describe "Auth", type: :request do
       let(:req_params) { { email: 'testxx@test.com', reset_url: 'http://hogehoge/reset_password' } }
 
       it do
-        post api_auth_send_reset_token_path, params: req_params, headers: auth_headers(user)
+        post api_auth_send_reset_password_token_path, params: req_params, headers: auth_headers(user)
         expect(response).to have_http_status(:not_found)
       end
     end

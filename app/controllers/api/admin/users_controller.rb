@@ -16,7 +16,7 @@ class Api::Admin::UsersController < Api::Admin::ApplicationController
   end
 
   def create
-    form = Admin::CreateUserForm.new(user_params)
+    form = Admin::User::CreateForm.new(user_params)
     if form.save
       render :show, formats: :json, locals: { user: form.record }, status: :created
     else

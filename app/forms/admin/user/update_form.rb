@@ -1,4 +1,4 @@
-class Admin::UpdateUserForm < Admin::CreateUserForm
+class Admin::User::UpdateForm < Admin::User::CreateForm
   attribute :password, :string
 
   def initialize(user:, **)
@@ -6,8 +6,6 @@ class Admin::UpdateUserForm < Admin::CreateUserForm
 
     @record = user
   end
-
-  protected
 
   def prepare_record
     update_params = attributes.select { |_, v| v.present? }

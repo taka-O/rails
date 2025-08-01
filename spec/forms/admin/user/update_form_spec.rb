@@ -1,24 +1,25 @@
 require 'rails_helper'
 
-RSpec.describe Admin::CreateUserForm do
+RSpec.describe Admin::User::UpdateForm do
   describe 'save' do
     subject(:save) { instance.save }
 
-    let(:instance) { described_class.new(create_params) }
+    let(:instance) { described_class.new(user: user, **update_params) }
+    let(:user) { create(:user, name: 'test', email: 'test@hogehoge', role: :admin) }
 
     context 'with valid data' do
-      let(:create_params) { { name: 'create', email: 'create@hogehoge', role: 'instructor' } }
+      let(:update_params) { { name: 'update', email: 'update@hogehoge', role: 'instructor' } }
 
       it do
         expect(save).to be_truthy
-        expect(instance.name).to eq 'create'
-        expect(instance.email).to eq 'create@hogehoge'
+        expect(instance.name).to eq 'update'
+        expect(instance.email).to eq 'update@hogehoge'
         expect(instance.role).to eq 'instructor'
       end
     end
 
     context 'with blank params' do
-      let(:create_params) { {} }
+      let(:update_params) { {} }
 
       it do
         expect(save).to be_falsey
@@ -29,7 +30,7 @@ RSpec.describe Admin::CreateUserForm do
     end
 
     context 'with invalid data' do
-      let(:create_params) { { role: 'hogehoge' } }
+      let(:update_params) { { name: '', email: '', role: 'hogehoge' } }
 
       it do
         expect(save).to be_falsey
@@ -38,10 +39,10 @@ RSpec.describe Admin::CreateUserForm do
     end
 
     context 'when email already exists' do
-      let(:create_params) { { name: 'create', email: 'create@hogehoge', role: 'instructor' } }
+      let(:update_params) { { name: 'update', email: 'update@hogehoge', role: 'instructor' } }
 
       before do
-        create(:user, email: 'create@hogehoge', role: 'instructor')
+        create(:user, email: 'update@hogehoge')
       end
 
       it do

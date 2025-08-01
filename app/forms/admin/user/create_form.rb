@@ -1,4 +1,4 @@
-class Admin::CreateUserForm < BaseForm
+class Admin::User::CreateForm < BaseForm
   attribute :name, :string
   attribute :email, :string
   attribute :role, :string
@@ -30,8 +30,6 @@ class Admin::CreateUserForm < BaseForm
 
     false
   end
-
-  protected
 
   def prepare_record
     password = SecureRandom.base64(15)
