@@ -1,4 +1,4 @@
-require 'csv'
+require "csv"
 
 class Admin::User::ImportForm < BaseForm
   attribute :file

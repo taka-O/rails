@@ -1,6 +1,6 @@
 class Api::Admin::Users::ImportController < Api::Admin::ApplicationController
   def create
-    form = Admin::User::ImportForm.new(params[:file])
+    form = Admin::User::ImportForm.new(file: params[:file])
     if form.save
       head :no_content
     else
