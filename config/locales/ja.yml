@@ -30,17 +30,12 @@
 ja:
   activerecord:
     attributes:
-      user:
+      user: &user_attr
         name: 名前
         email: メールアドレス
         role: 権限
 
   activemodel:
-    models:
-      admin/user/create_form: ユーザ登録
-
     attributes:
       admin/user/create_form:
-        name: 名前
-        email: メールアドレス
-        role: 権限
+        <<: *user_attr
